@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--引入工具库-->
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+    <title>Dereck's Backyard Sales!</title>
+</head>
+
+<body>
+    <div id="main"></div>
+    <!--<script src="/libs/lodash.js"></script>-->
+    <!--<script src="/libs/fastdom.min.js"></script>-->
+    <script>
+        //获取所有卡片
+        let cards = document.getElementsByClassName('MuiCardMedia-root');
+
+        //修改所有卡片宽度的方法
+        const update = (timestamp) => {
+            console.log(timestamp, 'timestamptimestamp');
+            for (let i = 0; i < cards.length; i++) {
+                cards[i].style.width = ((Math.sin(cards[i].offsetTop + timestamp / 1000) + 1) * 500) + 'px';
+            }
+            window.requestAnimationFrame(update);
+        }
+        // load事件后触发
+        window.addEventListener('load', update)
+
+    </script>
+</body>
+
+</html>
