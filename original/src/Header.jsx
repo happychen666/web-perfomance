@@ -4,7 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const styles = {
     root: {
@@ -25,7 +25,7 @@ class Header extends React.Component {
         this.openDrawer = this.openDrawer.bind(this);
     }
     openDrawer() {
-        this.setState({open: true});
+        this.setState({ open: true });
     }
     render() {
         return (
@@ -33,7 +33,7 @@ class Header extends React.Component {
                 <AppBar position="static">
                     <Toolbar>
                         <Typography variant="h5" color="inherit" className={this.props.classes.brand}>
-                            Dereck's Backyard Sales!
+                            Web Performance!
                         </Typography>
                     </Toolbar>
                 </AppBar>

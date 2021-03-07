@@ -6,13 +6,19 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import CardMedia from '@material-ui/core/CardMedia';
+import './animation.css';
 
 const styles = theme => ({
     root: {
         margin: theme.spacing(1),
+        willChange: 'transform'
     },
     card: {
         width: 300
+    },
+    cardSpinning: {
+        width: 300,
+        animation: '3s linear 1s infinite running rotate'
     },
     media: {
         height: 200,
@@ -24,13 +30,22 @@ const styles = theme => ({
 class MyCard extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            spinning: false,
+        }
+    }
+
+    spin = () => {
+        this.setState({ spinning: true })
     }
 
     render() {
+        //根据spinning判断是否旋转
+        let cardClass = this.state.spinning ? this.props.classes.cardSpinning : this.props.classes.card;
         return (
             <div className={this.props.classes.root}>
                 {/*添加点击事件，触发动画*/}
-                <MaterialUICard className={this.props.classes.card}>
+                <MaterialUICard className={cardClass} onClick={this.spin}>
                     <CardMedia
                         component='img'
                         className={this.props.media}
