@@ -19,23 +19,27 @@
     <!-- <script src="/libs/lodash.js"></script> -->
     <!-- <script src="/libs/fastdom.min.js"></script> -->
     <script>
-        //获取所有卡片
-        // let cards = document.getElementsByClassName('MuiCardMedia-root');
+        let cards = document.getElementsByClassName('MuiCardMedia-root');
+        //修改图片宽度
+        function changeWidth(position) {
+            for (let i = 0; i < cards.length; i++) {
+                cards[i].style.width = (Math.sin(position / 1000) + 1) * 500 + 'px';
+            }
+        }
 
-        // //修改所有卡片宽度的方法
-        // const update = (timestamp) => {
-        //     for (let i = 0; i < cards.length; i++) {
-        //         fastdom.measure(() => {
-        //             let top = cards[i].offsetTop;
-        //             fastdom.mutate(() => {
-        //                 cards[i].style.width = ((Math.sin(top + timestamp / 1000) + 1) * 500) + 'px';
-        //             })
-        //         })
-        //     }
-        //     window.requestAnimationFrame(update);
-        // }
-        // // load事件后触发
-        // window.addEventListener('load', update)
+        let ticking = false;
+        //利用Chrome DevTools来复现并分析抖动问题(pointer event)
+        window.addEventListener('pointermove', (e) => {
+            let pos = e.clientX //获取鼠标的横坐标位置
+            if (ticking) return;
+
+            ticking = true; //如果ticking为true，说明已经有个requestAnimationFrame执行了
+            window.requestAnimationFrame(() => {
+                changeWidth(pos);
+                //如果requestAnimationFrame里面的事情执行了，ticking再调整回false，接着又可以触发下一个requestAnimationFrame，这样即使pointermove的触发频率很高我们也不按照它实际的触发频率去触发，而是按照requestAnimationFrame调度的频率。
+                ticking = false;
+            });
+        })
 
     </script>
 </body>

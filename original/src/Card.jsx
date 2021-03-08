@@ -45,7 +45,7 @@ class MyCard extends React.Component {
         return (
             <div className={this.props.classes.root}>
                 {/*添加点击事件，触发动画*/}
-                <MaterialUICard className={cardClass} onClick={this.spin}>
+                <MaterialUICard className={cardClass}>
                     <CardMedia
                         component='img'
                         className={this.props.media}
