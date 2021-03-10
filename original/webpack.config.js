@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const { DllReferencePlugin } = require('webpack');
 
 module.exports = {
     mode: 'development',
@@ -76,5 +77,8 @@ module.exports = {
                 {from: './img/*',},
             ],
         }),
+        // new DllReferencePlugin({
+        //     manifest:require(`${__dirname}/dll/react.manifest.json`)
+        // })
     ],
 };

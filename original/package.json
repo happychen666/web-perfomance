@@ -6,6 +6,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production webpack",
     "start": "npm run build && node server.js",
+    "dll-build":"cross-env NODE_ENV=production webpack --config webpack.dll.config.js",
     "dev": "webpack-dev-server"
   },
   "dependencies": {
