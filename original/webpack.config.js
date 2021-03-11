@@ -18,8 +18,8 @@ module.exports = {
   },
   output: {
     path: `${__dirname}/build`,
-    filename: '[name].bundle.js',
-    chunkFilename: '[name].bundle.js',
+    filename: '[name].[hash].bundle.js', //没有进行按需加载的命名
+    chunkFilename: '[name].[chunkhash:8].bundle.js', //每个组件可能对应若干个不同的chunk，也就是不同的代码段，每个代码段都会有自己唯一的hash值,按需加载的代码段命名
   },
   optimization: {
     splitChunks: {
@@ -105,8 +105,8 @@ module.exports = {
       manifest: require(`${__dirname}/dll/react.manifest.json`),
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: '[id].[hash].css',
+      filename: '[name].[contenthash].css',
+      chunkFilename: '[id].[contenthash:8].css',
     }),
     new OptimizeCssAssetsPlugin({
       cssProcessorPluginOptions: {
