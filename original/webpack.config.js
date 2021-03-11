@@ -2,6 +2,8 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const { DllReferencePlugin } = require('webpack')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 
 module.exports = {
   mode: 'development',
@@ -63,6 +65,7 @@ module.exports = {
           {
             loader: 'style-loader',
           },
+          MiniCssExtractPlugin.loader,
           {
             loader: 'css-loader',
           },
@@ -98,8 +101,18 @@ module.exports = {
     new CopyPlugin({
       patterns: [{ from: './img/*' }],
     }),
-    // new DllReferencePlugin({
-    //     manifest:require(`${__dirname}/dll/react.manifest.json`)
-    // })
+    new DllReferencePlugin({
+      manifest: require(`${__dirname}/dll/react.manifest.json`),
+    }),
+    new MiniCssExtractPlugin({
+      filename: '[name].[hash].css',
+      chunkFilename: '[id].[hash].css',
+    }),
+    new OptimizeCssAssetsPlugin({
+      cssProcessorPluginOptions: {
+        preset: ['default', { discardComments: { removeAll: true } }],
+      },
+      canPrint: true,
+    }),
   ],
 }
